@@ -1,0 +1,124 @@
+:root {
+  /* Tuned to sit on top of a native macOS vibrancy (glass) material. */
+  --blue: #4a90d9;
+  --amber: #d9a441;
+  --green: #5cb87a;
+  --red: #d96a6a;
+  --purple: #a98cd8;
+  --text: #e9edf3;
+  --head: #ffffff;
+  --dim: #aeb6c2;
+  --faint: #8b94a2;
+  --line: rgba(150, 160, 178, 0.30);
+  --line-2: rgba(170, 180, 198, 0.55);
+  --node-fill: rgba(150, 160, 180, 0.10);
+  --node-fill-2: rgba(217, 164, 65, 0.14);
+  --tint: rgba(16, 20, 26, 0.22);
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', 'Noto Sans SC', -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --blue: #2f6fb0;
+    --amber: #a8740f;
+    --green: #2f8a52;
+    --red: #c0453f;
+    --purple: #6f55b0;
+    --text: #1d2430;
+    --head: #0a0e15;
+    --dim: #5a6573;
+    --faint: #8a93a1;
+    --line: rgba(60, 70, 88, 0.28);
+    --line-2: rgba(50, 60, 78, 0.5);
+    --node-fill: rgba(255, 255, 255, 0.5);
+    --node-fill-2: rgba(217, 164, 65, 0.2);
+    --tint: rgba(255, 255, 255, 0.30);
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--tint); /* subtle frost over the native glass */
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex; align-items: center; gap: 9px; flex-wrap: wrap;
+  min-height: 46px; padding: 8px 12px;
+  background: transparent;
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+.logo { display: flex; align-items: center; }
+.logo-mark { display: block; }
+.logo-mark .b1 { fill: var(--amber); }
+.logo-mark .b2 { fill: none; stroke: var(--blue); stroke-width: 2.4; }
+.logo-mark .b3 { fill: none; stroke: var(--green); stroke-width: 2.4; }
+.spacer { flex: 1; }
+.counter, .status { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+.status { color: var(--green); }
+
+.project-select {
+  font-family: var(--mono); font-size: 11px; color: var(--text);
+  background: var(--node-fill); border: 1px solid var(--line);
+  padding: 4px 8px; border-radius: 6px; cursor: pointer; max-width: 220px;
+}
+
+.back-btn {
+  font-family: var(--mono); font-size: 11px; color: var(--amber);
+  background: var(--node-fill-2); border: 1px solid var(--amber);
+  padding: 4px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+}
+
+.cb-hit { cursor: pointer; }
+
+.lensbar { display: flex; gap: 4px; }
+.lens-btn {
+  font-family: var(--mono); font-size: 11px; color: var(--dim);
+  background: transparent; border: 1px solid var(--line);
+  padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: 0.15s;
+}
+.lens-btn:hover { color: var(--text); background: var(--node-fill); }
+.lens-btn.active { color: var(--blue); border-color: var(--blue); background: var(--node-fill); }
+
+.canvas-wrap {
+  flex: 1; overflow: auto; position: relative;
+  background: transparent;
+  padding: 12px;
+  display: flex; align-items: flex-start; justify-content: center;
+}
+.cb-empty { margin-top: 16vh; font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.cb-canvas { display: block; }
+
+.cb-node { stroke-width: 1.6px; transition: fill 0.4s ease, stroke 0.4s ease; }
+.bx { fill: var(--node-fill); }
+.dia { fill: var(--node-fill-2); }
+
+.st-planned { stroke: var(--faint); stroke-dasharray: 5 4; opacity: 0.5; }
+.st-building { stroke: var(--amber); animation: cb-pulse 1.4s ease-in-out infinite; }
+.st-done { stroke: var(--green); }
+.st-refining { stroke: var(--blue); animation: cb-pulse 1.4s ease-in-out infinite; }
+@keyframes cb-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Color finished nodes by structural role. */
+.st-done.role-core { stroke: var(--amber); }
+.st-done.role-entry { stroke: var(--blue); }
+.st-done.role-iso { stroke: var(--faint); }
+
+.cb-ln { stroke: var(--line-2); stroke-width: 1.6px; fill: none; }
+.cb-ln.ln-d { stroke-dasharray: 6 5; }
+.edge-data { stroke: var(--blue); }
+.edge-control { stroke: var(--purple); stroke-dasharray: 6 5; }
+.cb-arrowhead { fill: var(--dim); }
+
+.cb-tx { fill: var(--head); font: 600 13px var(--sans); }
+.cb-txs { fill: var(--dim); font: 400 10.5px var(--mono); }
+.cb-txb { fill: var(--blue); font: 500 10.5px var(--mono); }
+
+/* (timeline scrubber removed — a git-history axis will replace it) */

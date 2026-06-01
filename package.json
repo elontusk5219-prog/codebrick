@@ -1,0 +1,36 @@
+{
+  "name": "codebrick",
+  "version": "0.1.0",
+  "description": "Watch your architecture get built — a coding agent self-reports build events, the canvas grows them live on a blueprint canvas.",
+  "type": "module",
+  "bin": {
+    "codebrick": "dist/server/reporter.js",
+    "codebrick-daemon": "dist/server/index.js",
+    "codebrick-analyze": "dist/analyzer/cli.js"
+  },
+  "scripts": {
+    "dev": "tsx src/server/index.ts",
+    "daemon": "node dist/server/index.js",
+    "reporter": "node dist/server/reporter.js",
+    "build": "node scripts/build.mjs",
+    "start": "node dist/server/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "seed": "node scripts/seed.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "elkjs": "^0.9.3",
+    "ws": "^8.18.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.5.13",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

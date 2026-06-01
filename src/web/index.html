@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CodeBrick · 架构施工现场</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="top">
+    <select id="project" class="project-select" style="display:none"></select>
+    <button id="back" class="back-btn" style="display:none">← 返回</button>
+    <div id="lensbar" class="lensbar"></div>
+    <div class="spacer"></div>
+    <div id="counter" class="counter">0/0 事件</div>
+    <div id="status" class="status">● 连接中…</div>
+  </div>
+
+  <main id="canvas" class="canvas-wrap">
+    <div class="cb-empty">等待 agent 播报第一个架构事件…</div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
