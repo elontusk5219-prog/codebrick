@@ -70,8 +70,13 @@ export interface ProjectSummary {
   lastTs: number;
 }
 
+// Reversible, collision-free filename for a projectId (handles non-ASCII names
+// like Chinese, which the old replace-with-underscore mangled and collided).
 function safeFile(projectId: string): string {
-  return projectId.replace(/[^a-zA-Z0-9_.-]/g, '_').slice(0, 120) + '.jsonl';
+  return encodeURIComponent(projectId) + '.jsonl';
+}
+function projectIdFromFile(file: string): string | undefined {
+  try { return decodeURIComponent(file.slice(0, -'.jsonl'.length)); } catch { return undefined; }
 }
 
 /**
@@ -96,7 +101,8 @@ export class Registry {
     try {
       for (const file of readdirSync(logDir)) {
         if (!file.endsWith('.jsonl')) continue;
-        const id = file.slice(0, -'.jsonl'.length);
+        const id = projectIdFromFile(file);
+        if (!id) continue;
         const log = this.hub(id).getLog();
         if (log.length) this.lastTs.set(id, log[log.length - 1].ts);
       }

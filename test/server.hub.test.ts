@@ -102,4 +102,19 @@ describe('Registry (multi-project)', () => {
       rmSync(dir, { recursive: true, force: true });
     }
   });
+
+  it('persists and restores non-ASCII (Chinese) names without collision', async () => {
+    const dir = join(tmpdir(), `cb-reg-${Date.now()}-${Math.floor(Math.random() * 1e6)}`);
+    try {
+      const reg1 = new Registry(Date.now, dir);
+      await reg1.emit('追女孩练习', undefined, [A]);
+      await reg1.emit('乙女股神', undefined, [A, B]);
+      const reg2 = new Registry(Date.now, dir);
+      expect(reg2.getLog('追女孩练习')).toHaveLength(1); // would be 0 or merged if names collided
+      expect(reg2.getLog('乙女股神')).toHaveLength(2);
+      expect(reg2.listProjects().map((p) => p.id).sort()).toEqual(['乙女股神', '追女孩练习'].sort());
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
 });
