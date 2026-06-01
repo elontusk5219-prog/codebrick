@@ -93,7 +93,12 @@ body {
   padding: 12px;
   display: flex; align-items: flex-start; justify-content: center;
 }
-.cb-empty { margin-top: 16vh; font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.cb-empty {
+  margin-top: 16vh; max-width: 320px; text-align: center;
+  font-family: var(--mono); font-size: 13px; color: var(--dim);
+}
+.cb-empty-sub { display: block; margin-top: 10px; font-size: 11px; color: var(--faint); line-height: 1.7; }
+.cb-empty code { background: var(--node-fill); padding: 1px 5px; border-radius: 4px; color: var(--blue); }
 .cb-canvas { display: block; }
 
 .cb-node { stroke-width: 1.6px; transition: fill 0.4s ease, stroke 0.4s ease; }

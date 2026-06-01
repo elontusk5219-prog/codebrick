@@ -79,10 +79,19 @@ async function rerender() {
   const lg = applyLens(focused, lens);
   annotateRoles(lg);
   const positioned = await layout(lg);
-  canvas.innerHTML = positioned.nodes.length
-    ? renderSvg(positioned)
-    : '<div class="cb-empty">等待架构…</div>';
-  if (positioned.nodes.length) fitToView();
+  if (positioned.nodes.length) {
+    canvas.innerHTML = renderSvg(positioned);
+    fitToView();
+  } else if (events.length === 0) {
+    canvas.innerHTML =
+      '<div class="cb-empty">这个仓库还没有架构' +
+      '<span class="cb-empty-sub">静态扫描只读 JS/TS 依赖。在它的目录里跑 ' +
+      '<code>codebrick-architect</code>,让 Claude Code 读代码蒸馏出架构(任意语言)。</span></div>';
+  } else {
+    canvas.innerHTML =
+      '<div class="cb-empty">本视图没有内容' +
+      '<span class="cb-empty-sub">换一根轴试试(管线 / 模块)。</span></div>';
+  }
   counter.textContent = `${lg.nodes.length} 节点 · ${lg.edges.length} 连线`;
   rendering = false;
   if (dirty) { dirty = false; void rerender(); }
